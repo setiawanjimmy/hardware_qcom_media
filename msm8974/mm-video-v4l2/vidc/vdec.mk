@@ -88,7 +88,9 @@ endif
 libOmxVdec-def += -DFLEXYUV_SUPPORTED
 libOmxVdec-def += -DADAPTIVE_PLAYBACK_SUPPORTED
 
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 vdec-inc       = $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
+endif
 
 # ---------------------------------------------------------------------------------
 # 			Make the Shared library (libOmxVdec)
@@ -106,7 +108,9 @@ libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/qcom/display
 libmm-vdec-inc          += $(TARGET_OUT_HEADERS)/adreno
 libmm-vdec-inc          += frameworks/native/include/media/openmax
 libmm-vdec-inc          += frameworks/native/include/media/hardware
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 libmm-vdec-inc          += $(vdec-inc)
+endif
 libmm-vdec-inc      += hardware/qcom/media/msm8974/libc2dcolorconvert
 libmm-vdec-inc      += frameworks/av/include/media/stagefright
 
@@ -141,7 +145,9 @@ LOCAL_SRC_FILES         += common/src/vidc_color_converter.cpp
 # omx_vdec_msm8974.cpp:9375:16: address of array 'extra->data' will always evaluate to 'true'
 LOCAL_CLANG_CFLAGS      += -Wno-pointer-bool-conversion
 
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 LOCAL_ADDITIONAL_DEPENDENCIES  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+endif
 
 include $(BUILD_SHARED_LIBRARY)
 
@@ -176,7 +182,9 @@ LOCAL_SRC_FILES         += vdec/src/hevc_utils.cpp
 LOCAL_SRC_FILES         += common/src/extra_data_handler.cpp
 LOCAL_SRC_FILES         += common/src/vidc_color_converter.cpp
 
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 LOCAL_ADDITIONAL_DEPENDENCIES  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+endif
 
 #include $(BUILD_SHARED_LIBRARY)
 
@@ -220,7 +228,9 @@ LOCAL_C_INCLUDES                := $(mm-vdec-drv-test-inc)
 LOCAL_SRC_FILES                 := vdec/src/message_queue.c
 LOCAL_SRC_FILES                 += vdec/test/decoder_driver_test.c
 
+ifeq ($(TARGET_COMPILE_WITH_MSM_KERNEL),true)
 LOCAL_ADDITIONAL_DEPENDENCIES  := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
+endif
 
 #include $(BUILD_EXECUTABLE)
 
